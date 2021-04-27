@@ -36,7 +36,7 @@ mock(RegExp('/detail' + '.*'), 'post', options => {
 mock(RegExp('/signin'), 'post', options => {
   const params = JSON.parse(options.body)
   console.log(params)
-  if (params.username === 'admin' && params.password) {
+  if (params.username === 'admin' && params.password === 'admin') {
     return {
       code: 0,
       msg: 'success'
