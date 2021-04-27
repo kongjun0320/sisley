@@ -22,6 +22,7 @@ import LineHori from '../../components/LineHori.vue'
 import NavBar from './NavBar.vue'
 import Show from './Show.vue'
 import MFooter from '../../components/MFooter.vue'
+import { Notify } from 'vant'
 export default {
   components: { LineHori, NavBar, Show, MFooter },
   name: 'Home',
@@ -37,7 +38,11 @@ export default {
   },
   methods: {
     swiperClick(sItem) {
-      this.$router.push(`/detail/${sItem.id}`)
+      if (sItem.id !== 3) {
+        Notify({ type: 'warning', message: '暂无数据' })
+      } else {
+        this.$router.push(`/detail/${sItem.id}`)
+      }
     },
     _getHome() {
       this.$http.getHome().then(res => {
