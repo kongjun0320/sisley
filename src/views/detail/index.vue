@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { Notify } from 'vant'
 export default {
   name: 'Detail',
   data() {
@@ -70,7 +71,7 @@ export default {
         cartProducts.push({ ...detailData.info, isChecked: true, count: 1 })
       }
       this.$store.commit('addCart', cartProducts)
-      console.log(detailData)
+      Notify({ type: 'success', message: '加入购物车成功' })
       if (type === 2) {
         // 立即购买
         this.$router.push('/cart')
