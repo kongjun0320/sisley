@@ -1,28 +1,63 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
+Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
-    name: "Home",
-    component: Home
+    path: '/',
+    name: 'main',
+    component: () => import('../views/main'),
+    children: [
+      {
+        path: '',
+        redirect: '/home'
+      },
+      {
+        path: 'home',
+        name: 'home',
+        component: () => import('../views/home')
+      },
+      {
+        path: 'search',
+        name: 'search',
+        component: () => import('../views/search')
+      },
+      {
+        path: 'detail/:id',
+        name: 'detail',
+        component: () => import('../views/detail')
+      }
+    ]
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    path: '/cart',
+    name: 'cart',
+    component: () => import('../views/cart')
+  },
+  {
+    path: '/chart',
+    name: 'chart',
+    component: () => import('../views/chart')
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: () => import('../views/account')
   }
-];
+]
 
 const router = new VueRouter({
   routes
-});
+})
 
-export default router;
+router.afterEach(() => {
+  window.scrollTo(0, 0)
+})
+
+export default router
