@@ -32,6 +32,13 @@
       <section class="handle-btn-item navbar-toggler">
         <img
           @click="$router.push('/chart')"
+          src="../../assets/images/chart.svg"
+          alt=""
+        />
+      </section>
+      <section class="handle-btn-item navbar-toggler">
+        <img
+          @click="$router.push('/cate')"
           src="../../assets/images/cate.svg"
           alt=""
         />
